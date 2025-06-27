@@ -79,14 +79,14 @@ export default function DashboardLayout() {
         </div>
 
         {/* Stat Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6 cursor-pointer">
+        <div className="grid grid-cols-2 md:grid-cols-5 cursor-pointer">
           {stats.map((stat, idx) => (
             <button
               key={idx}
               onClick={() => setSelectedStat(stat.statKey)}
 
               className={` cursor-pointer border rounded-lg p-4 text-center transition-all text-start ${
-                selectedStat === stat.statKey ? "border-blue-500 bg-blue-50" : "border-gray-200"
+                selectedStat === stat.statKey ? "border-b border-blue-500" : "border-b border-gray-200"
               }`}
             >
               <div className="text-xs text-gray-600 mb-1">

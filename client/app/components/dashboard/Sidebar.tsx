@@ -20,7 +20,9 @@ const Sidebar = () => {
   return (
     <aside className="w-64 bg-gray-50 border-r border-gray-200 p-4 flex flex-col justify-between">
       <div>
-        <div className="font-bold text-xl mb-8">LOGO</div>
+        <div className="font-bold text-xl mb-8">
+          <img src="logo.png" alt="" />
+        </div>
         <nav className="space-y-2">
           <SidebarLink
             icon={<Home className="w-4 h-4" />}
