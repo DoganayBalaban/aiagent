@@ -1,61 +1,115 @@
-// DashboardLayout.jsx
 import React, { useState } from "react";
-import { Home, Key, Play, Database, User, Settings, LogOut, Layers, BarChart2 } from "lucide-react";
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import Sidebar from "~/components/dashboard/Sidebar";
 
+// Types
+interface StatData {
+  prodexec: number;
+  failedprod: number;
+  failurerate: string;
+  timesaved: string;
+  runtime: string;
+}
+
+interface PeriodStats {
+  [key: string]: StatData;
+}
+
+interface Stat {
+  label: string;
+  statKey: keyof StatData;
+}
+
+interface ChartData {
+  name: string;
+  value: number;
+}
+
 export default function DashboardLayout() {
+  const [selectedStat, setSelectedStat] = useState<keyof StatData>("prodexec");
+  const [selectedPeriod, setSelectedPeriod] = useState("7days");
 
+  const statsData: PeriodStats = {
+    "7days": { prodexec: 150, failedprod: 12, failurerate: "8%", timesaved: "45h", runtime: "3h" },
+    "30days": { prodexec: 650, failedprod: 45, failurerate: "7%", timesaved: "180h", runtime: "12h" },
+    "90days": { prodexec: 1800, failedprod: 120, failurerate: "6.7%", timesaved: "540h", runtime: "36h" },
+  };
 
-  const stats = [
-    { label: "Prod. executions", value: 0 },
-    { label: "Failed Prod. executions", value: 0 },
-    { label: "Failure Rate", value: 0 },
-    { label: "Time Saved", value: 0 },
-    { label: "Run time", value: 0 },
+  const stats: Stat[] = [
+    { label: "Prod. executions", statKey: "prodexec" },
+    { label: "Failed Prod. executions", statKey: "failedprod" },
+    { label: "Failure Rate", statKey: "failurerate" },
+    { label: "Time Saved", statKey: "timesaved" },
+    { label: "Run time", statKey: "runtime" },
   ];
+
+  // Dummy chart data generation
+  const generateChartData = (): ChartData[] => {
+    const rawValue = statsData[selectedPeriod][selectedStat];
+
+    const baseValue = typeof rawValue === "string"
+      ? parseFloat(rawValue.replace(/[^0-9.]/g, ""))
+      : rawValue;
+
+    return Array.from({ length: 7 }, (_, i) => ({
+      name: `Day ${i + 1}`,
+      value: Math.round(baseValue / 7 + Math.random() * 10),
+    }));
+  };
+
+  const chartData = generateChartData();
 
   return (
     <div className="flex h-screen w-screen">
       <Sidebar />
-      {/* Main Content */}
-      <main className="flex-1 p-8">
+
+      <main className="flex-1 p-10 m-10">
         <div className="flex flex-col items-start gap-4 justify-between mb-6">
           <h1 className="text-4xl font-medium text-start">Overview</h1>
-          <select className="border border-gray-300 rounded-lg px-3 py-1 text-sm w-32">
-            <option>Last 7 days</option>
+
+          <select 
+            className="border border-gray-300 rounded-lg px-3 py-1 text-sm w-32"
+            value={selectedPeriod}
+            onChange={(e) => setSelectedPeriod(e.target.value)}
+          >
+            <option value="7days">Last 7 days</option>
+            <option value="30days">Last 30 days</option>
+            <option value="90days">Last 90 days</option>
           </select>
         </div>
 
-        {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
+        {/* Stat Cards */}
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6 cursor-pointer">
           {stats.map((stat, idx) => (
-            <div
+            <button
               key={idx}
-              className="border border-gray-200 rounded-lg p-4 text-center"
+              onClick={() => setSelectedStat(stat.statKey)}
+
+              className={` cursor-pointer border rounded-lg p-4 text-center transition-all text-start ${
+                selectedStat === stat.statKey ? "border-blue-500 bg-blue-50" : "border-gray-200"
+              }`}
             >
-              <div className="text-xs text-gray-600 mb-1">{stat.label}<br/>Last 7 days</div>
-              <div className="text-2xl font-bold">{stat.value}</div>
-            </div>
+              <div className="text-xs text-gray-600 mb-1">
+                {stat.label} <br />
+                {selectedPeriod === "7days" ? "Last 7 days" : selectedPeriod === "30days" ? "Last 30 days" : "Last 90 days"}
+              </div>
+              <div className="text-2xl font-bold">{statsData[selectedPeriod][stat.statKey]}</div>
+            </button>
           ))}
         </div>
 
-        {/* Placeholder for chart */}
-        <div className="border border-gray-300 h-64 rounded-lg flex items-center justify-center">
-          <span className="text-3xl">⎺⎽⎻⎺⎻⎺</span>
+        {/* Chart */}
+        <div className="border border-gray-300 rounded-lg w-full h-64 p-4">
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart data={chartData}>
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Line type="monotone" dataKey="value" stroke="#2563eb" strokeWidth={2} />
+            </LineChart>
+          </ResponsiveContainer>
         </div>
       </main>
     </div>
-  );
-}
-
-function SidebarLink({ icon, label, onClick, active }: { icon: React.ReactNode, label: string, onClick: () => void, active: boolean }) {
-  return (
-    <button
-      onClick={onClick}
-      className={`flex items-center gap-2 p-2 rounded-lg w-full text-left hover:bg-gray-100 transition-colors ${active ? "bg-gray-100 font-semibold" : ""}`}
-    >
-      {icon}
-      <span className="text-sm">{label}</span>
-    </button>
   );
 }
