@@ -68,7 +68,7 @@ export default function DashboardLayout() {
           <h1 className="text-4xl font-medium text-start">Overview</h1>
 
           <select 
-            className="border border-gray-300 rounded-lg px-3 py-1 text-sm w-32"
+            className="border border-gray-300 rounded-lg px-3 py-1 text-sm w-64"
             value={selectedPeriod}
             onChange={(e) => setSelectedPeriod(e.target.value)}
           >
