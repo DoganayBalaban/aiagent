@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useReactFlow, Handle, Position } from "reactflow";
 import { Bot, Settings, CheckCircle, AlertCircle, Trash2, Info } from "lucide-react";
-import AgentConfigModal from "./AgentConfigModal";
+import AgentConfigModal from "./modals/AgentConfigModal";
 
 interface ToolAgentNodeProps {
   data: any;

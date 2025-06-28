@@ -67,7 +67,7 @@ const Sidebar = () => {
     className="flex items-center justify-between w-full p-2 rounded-lg hover:bg-gray-100"
   >
  
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2 avatar">
       <User className="w-5 h-5" />
       <span className="text-sm">username</span>
     </div>

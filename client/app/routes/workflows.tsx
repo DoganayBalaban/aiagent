@@ -3,6 +3,7 @@ import {
   MoreVertical,
   Pencil,
   Plus,
+  Search,
   Share,
   Trash,
 } from "lucide-react";
@@ -40,16 +41,13 @@ export default function WorkflowsLayout() {
               </select>
             </div>
 
-            <div className="flex items-center gap-6">
-              <div className="flex items-center gap-2">
-                <input
-                  type="text"
-                  placeholder="Search"
-                  className="border border-gray-300 rounded px-3 py-1 text-sm h-10"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-              </div>
+            <div className="flex items-center gap-6 justify-center">
+            <div className="flex gap-2 p-3 flex-col items-start">
+            <label className="input w-full rounded-2xl border flex items-center gap-2 px-2 py-1">
+            <Search className="h-4 w-4 opacity-50" />
+           <input type="search" className="grow" placeholder="Search" />
+        </label>
+      </div>
               <div className="flex items-center gap-2">
                 <button className="flex items-center gap-2 p-2 rounded-lg hover:bg-[#F5F5F5] transition duration-500 h-10">
                   <Link

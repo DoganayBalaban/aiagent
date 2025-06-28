@@ -55,8 +55,8 @@ function AgentConfigModal({ isOpen, onClose, nodeData, onSave }: AgentConfigModa
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 w-[60vw]">
-      <div className="bg-white rounded-xl p-6 max-w-2xl w-[60vw] max-h-[90vh] overflow-y-auto m-4">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 w-[20vw]">
+      <div className="bg-white rounded-xl p-6 max-w-2xl w-[20vw] max-h-[90vh] overflow-y-auto m-4">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
             <Settings className="w-6 h-6" />

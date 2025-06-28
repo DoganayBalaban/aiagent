@@ -54,6 +54,7 @@ function Sidebar() {
         </label>
       </div>
 
+
       {/* Accordion: Nodes */}
       <div className="collapse collapse-arrow bg-white border border-base-300 rounded-lg">
         <input type="checkbox" defaultChecked />
