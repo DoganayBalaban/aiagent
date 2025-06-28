@@ -9,6 +9,7 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import { SnackbarProvider } from "notistack";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -33,9 +34,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body className="h-full">
+        <SnackbarProvider>
         {children}
         <ScrollRestoration />
         <Scripts />
+        </SnackbarProvider>
       </body>
     </html>
   );
