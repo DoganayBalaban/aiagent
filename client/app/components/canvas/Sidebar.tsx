@@ -1,5 +1,5 @@
 import React from "react";
-import { Plus } from "lucide-react";
+import { Search } from "lucide-react";
 import DraggableNode from "./DraggableNode";
 
 const NODE_TYPE_LIST = [
@@ -44,15 +44,25 @@ const NODE_TYPE_LIST = [
 
 function Sidebar() {
   return (
-    <div className="w-64 bg-gray-50 p-4 border-r border-gray-200">
-      <h3 className="font-bold mb-4 text-gray-700 flex items-center gap-2">
-        <Plus className="w-5 h-5" />
-        Agents
-      </h3>
-      <div className="space-y-3">
-        {NODE_TYPE_LIST.map((nodeType) => (
-          <DraggableNode key={nodeType.id} nodeType={nodeType} />
-        ))}
+    <div className="w-64 bg-gray-50  border-r border-gray-200 overflow-y-auto h-screen">
+      {/* Search Input */}
+      <div className="flex gap-2 mb-4 p-3 flex-col items-start">
+        <h3 className="font-bold mb-4 text-gray-700">Add Nodes</h3>
+        <label className="input w-full rounded-2xl border flex items-center gap-2 px-2 py-1">
+          <Search className="h-4 w-4 opacity-50" />
+          <input type="search" className="grow" placeholder="Search" />
+        </label>
+      </div>
+
+      {/* Accordion: Nodes */}
+      <div className="collapse collapse-arrow bg-white border border-base-300 rounded-lg">
+        <input type="checkbox" defaultChecked />
+        <div className="collapse-title font-semibold text-sm">Nodes</div>
+        <div className="collapse-content space-y-2">
+          {NODE_TYPE_LIST.map((nodeType) => (
+            <DraggableNode key={nodeType.id} nodeType={nodeType} />
+          ))}
+        </div>
       </div>
     </div>
   );

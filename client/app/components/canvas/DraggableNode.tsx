@@ -26,7 +26,7 @@ function DraggableNode({ nodeType }: DraggableNodeProps) {
     <div
       draggable
       onDragStart={onDragStart}
-      className="text-black p-3 cursor-grab border-b-2 border-gray-200 hover:bg-gray-50 transition-all hover:scale-105 select-none rounded-lg"
+      className="text-black  p-3 cursor-grab border-b-2 border-gray-200 hover:bg-gray-50 transition-all hover:scale-105 select-none rounded-lg"
     >
       <div className="text-sm font-medium flex items-center gap-2">
         {nodeType.type === "toolAgent" ? (
