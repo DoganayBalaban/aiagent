@@ -13,14 +13,32 @@ const NODE_TYPE_LIST = [
       memory: { type: "buffer", size: 100 },
       model: { provider: "openai", model: "gpt-4" },
       prompt: "Sen yardımcı bir AI asistanısın.",
-      moderation: { enabled: false }
+      moderation: { enabled: false },
     },
   },
   {
     id: "2",
     type: "start",
     label: "Start",
-    data: {}
+    data: {},
+  },
+  {
+    id: "3",
+    type: "condition",
+    label: "Condition",
+    data: {
+      name: "Condition",
+      conditions: [
+        {
+          id: 0,
+          type: "String",
+          value1: "",
+          operation: "Equal",
+          value2: "",
+        },
+      ],
+      logicOperator: "AND",
+    },
   },
 ];
 
@@ -36,9 +54,8 @@ function Sidebar() {
           <DraggableNode key={nodeType.id} nodeType={nodeType} />
         ))}
       </div>
-      
     </div>
   );
 }
 
-export default Sidebar; 
+export default Sidebar;

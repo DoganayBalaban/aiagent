@@ -6,14 +6,16 @@ import ReactFlow, {
   useReactFlow,
   Controls,
   Background,
-  MiniMap
+  MiniMap,
 } from "reactflow";
 import ToolAgentNode from "./ToolAgentNode";
 import StartNode from "./StartNode";
 import CustomEdge from "./CustomEdge";
+import ConditionNode from "./ConditionNode";
 
 const nodeTypes = {
   toolAgent: ToolAgentNode,
+  condition: ConditionNode,
   start: StartNode,
 };
 
@@ -90,8 +92,8 @@ function FlowCanvas() {
           className="bg-gray-50"
         >
           <Controls position="top-right" />
-          <Background  gap={20} size={1} />
-          <MiniMap/>
+          <Background gap={20} size={1} />
+          <MiniMap />
         </ReactFlow>
       </div>
     </div>

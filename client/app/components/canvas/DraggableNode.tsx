@@ -1,5 +1,5 @@
 import React from "react";
-import { Bot, Play } from "lucide-react";
+import { Bot, Divide, Play, Split } from "lucide-react";
 
 interface NodeType {
   id: string;
@@ -29,10 +29,14 @@ function DraggableNode({ nodeType }: DraggableNodeProps) {
       className="text-black p-3 cursor-grab border-b-2 border-gray-200 hover:bg-gray-50 transition-all hover:scale-105 select-none rounded-lg"
     >
       <div className="text-sm font-medium flex items-center gap-2">
-        {nodeType.type === 'toolAgent' ? (
+        {nodeType.type === "toolAgent" ? (
           <Bot className="w-4 h-4 text-blue-600" />
-        ) : (
+        ) : nodeType.type === "condition" ? (
+          <Split className="w-4 h-4 text-green-600" />
+        ) : nodeType.type === "start" ? (
           <Play className="w-4 h-4 text-green-600" />
+        ) : (
+          <div></div>
         )}
         {nodeType.label}
       </div>
@@ -40,4 +44,4 @@ function DraggableNode({ nodeType }: DraggableNodeProps) {
   );
 }
 
-export default DraggableNode; 
+export default DraggableNode;
