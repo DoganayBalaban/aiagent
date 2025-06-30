@@ -35,9 +35,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body className="h-full">
         <SnackbarProvider>
-        {children}
-        <ScrollRestoration />
-        <Scripts />
+          {children}
+          <ScrollRestoration />
+          <Scripts />
         </SnackbarProvider>
       </body>
     </html>

@@ -12,17 +12,28 @@ import { Link } from "react-router";
 
 import Sidebar from "~/components/dashboard/Sidebar";
 
-const workflows = [
-  {
-    name: "workflow",
-    tag: "business",
-    created: "June 26th, 2025",
-    updated: "June 26th, 2025",
-  },
-];
-
 export default function WorkflowsLayout() {
+  const [workflows, setWorkflows] = useState([
+    {
+      id: 1,
+      name: "workflow",
+      tag: "business",
+      created: "June 26th, 2025",
+      updated: "June 26th, 2025",
+    },
+    {
+      id: 2,
+      name: "workflow2",
+      tag: "business",
+      created: "June 30th, 2025",
+      updated: "June 30th, 2025",
+    },
+  ]);
   const [searchQuery, setSearchQuery] = useState("");
+
+  const handleDelete = (id: number) => {
+    setWorkflows(workflows.filter((workflow) => workflow.id !== id));
+  };
 
   return (
     <div className="flex h-screen w-screen">
@@ -42,12 +53,17 @@ export default function WorkflowsLayout() {
             </div>
 
             <div className="flex items-center gap-6 justify-center">
-            <div className="flex gap-2 p-3 flex-col items-start">
-            <label className="input w-full rounded-2xl border flex items-center gap-2 px-2 py-1">
-            <Search className="h-4 w-4 opacity-50" />
-           <input type="search" className="grow" placeholder="Search"   onChange={(e) => setSearchQuery(e.target.value)} />
-        </label>
-      </div>
+              <div className="flex gap-2 p-3 flex-col items-start">
+                <label className="input w-full rounded-2xl border flex items-center gap-2 px-2 py-1">
+                  <Search className="h-4 w-4 opacity-50" />
+                  <input
+                    type="search"
+                    className="grow"
+                    placeholder="Search"
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                </label>
+              </div>
               <div className="flex items-center gap-2">
                 <button className="flex items-center gap-2 p-2 rounded-lg hover:bg-[#F5F5F5] transition duration-500 h-10">
                   <Link
@@ -76,61 +92,70 @@ export default function WorkflowsLayout() {
                   </tr>
                 </thead>
                 <tbody>
-                  {workflows.filter((workflow) => workflow.name.toLowerCase().includes(searchQuery.toLowerCase())).map((workflow) => (
-                    <tr key={workflow.name} className="hover:bg-[#F5F5F5]">
-                      <td className="p-3">{workflow.name}</td>
-                      <td className="p-3">{workflow.tag}</td>
-                      <td className="p-3">
-                        {workflow.created}
-                        <br />
-                      </td>
-                      <td className="p-3">
-                        {workflow.updated}
-                        <br />
-                      </td>
-                      <td className="p-3 relative">
-                        {/* DaisyUI Dropdown */}
-                        <div className="dropdown dropdown-end">
-                          <div
-                            tabIndex={0}
-                            role="button"
-                            className="btn btn-ghost btn-sm p-2"
-                          >
-                            <MoreVertical className="w-4 h-4" />
+                  {workflows
+                    .filter((workflow) =>
+                      workflow.name
+                        .toLowerCase()
+                        .includes(searchQuery.toLowerCase())
+                    )
+                    .map((workflow) => (
+                      <tr key={workflow.id} className="hover:bg-[#F5F5F5]">
+                        <td className="p-3">{workflow.name}</td>
+                        <td className="p-3">{workflow.tag}</td>
+                        <td className="p-3">
+                          {workflow.created}
+                          <br />
+                        </td>
+                        <td className="p-3">
+                          {workflow.updated}
+                          <br />
+                        </td>
+                        <td className="p-3 relative">
+                          {/* DaisyUI Dropdown */}
+                          <div className="dropdown dropdown-end">
+                            <div
+                              tabIndex={0}
+                              role="button"
+                              className="btn btn-ghost btn-sm p-2"
+                            >
+                              <MoreVertical className="w-4 h-4" />
+                            </div>
+                            <ul
+                              tabIndex={0}
+                              className="dropdown-content z-[1000] menu p-2 shadow bg-base-100 border border-gray-200 rounded-box w-40 absolute right-0 top-full mt-1"
+                            >
+                              <li>
+                                <a>
+                                  <Pencil className="w-4 h-4" />
+                                  Rename
+                                </a>
+                              </li>
+                              <li>
+                                <a>
+                                  <Copy className="w-4 h-4" />
+                                  Duplicate
+                                </a>
+                              </li>
+                              <li>
+                                <a>
+                                  <Share className="w-4 h-4" />
+                                  Share
+                                </a>
+                              </li>
+                              <li>
+                                <a
+                                  className="text-red-600"
+                                  onClick={() => handleDelete(workflow.id)}
+                                >
+                                  <Trash className="w-4 h-4" />
+                                  Delete
+                                </a>
+                              </li>
+                            </ul>
                           </div>
-                          <ul
-                            tabIndex={0}
-                            className="dropdown-content z-[1000] menu p-2 shadow bg-base-100 border border-gray-200 rounded-box w-40 absolute right-0 top-full mt-1"
-                          >
-                            <li>
-                              <a>
-                                <Pencil className="w-4 h-4" />
-                                Rename
-                              </a>
-                            </li>
-                            <li>
-                              <a>
-                                <Copy className="w-4 h-4" />
-                                Duplicate
-                              </a>
-                            </li>
-                            <li>
-                              <a>
-                                <Share className="w-4 h-4" />
-                                Share
-                              </a>
-                            </li>
-                            <li>
-                              <a className="text-red-600">
-                                <Trash className="w-4 h-4" />
-                                Delete
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
+                        </td>
+                      </tr>
+                    ))}
                 </tbody>
               </table>
             </div>
