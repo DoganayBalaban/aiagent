@@ -32,7 +32,7 @@ const Navbar = () => {
             onChange={(e) => setTitle(e.target.value)}
             onBlur={handleBlur}
             placeholder="Dosya Adı"
-            autoFocus
+           
             required
             className="text-3xl border-b-2 border-[#616161] w-full text-center focus:outline-none"
           />

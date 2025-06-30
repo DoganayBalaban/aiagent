@@ -45,7 +45,7 @@ export default function WorkflowsLayout() {
             <div className="flex gap-2 p-3 flex-col items-start">
             <label className="input w-full rounded-2xl border flex items-center gap-2 px-2 py-1">
             <Search className="h-4 w-4 opacity-50" />
-           <input type="search" className="grow" placeholder="Search" />
+           <input type="search" className="grow" placeholder="Search"   onChange={(e) => setSearchQuery(e.target.value)} />
         </label>
       </div>
               <div className="flex items-center gap-2">
@@ -63,10 +63,10 @@ export default function WorkflowsLayout() {
           </div>
 
           {/* Tablo */}
-          <div className="border border-[#F5F5F5] rounded-lg ">
+          <div className="border border-[#D9D9D9] rounded-lg ">
             <div className="">
               <table className="w-full text-sm">
-                <thead className="bg-[#F5F5F5] text-left text-lg">
+                <thead className="bg-[#D9D9D9] text-left text-lg">
                   <tr>
                     <th className="p-3 font-medium">Name</th>
                     <th className="p-3 font-medium">Tag</th>
@@ -76,8 +76,8 @@ export default function WorkflowsLayout() {
                   </tr>
                 </thead>
                 <tbody>
-                  {workflows.map((workflow) => (
-                    <tr key={workflow.name}>
+                  {workflows.filter((workflow) => workflow.name.toLowerCase().includes(searchQuery.toLowerCase())).map((workflow) => (
+                    <tr key={workflow.name} className="hover:bg-[#F5F5F5]">
                       <td className="p-3">{workflow.name}</td>
                       <td className="p-3">{workflow.tag}</td>
                       <td className="p-3">

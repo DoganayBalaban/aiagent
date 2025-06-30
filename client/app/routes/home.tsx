@@ -68,7 +68,7 @@ export default function DashboardLayout() {
           <h1 className="text-4xl font-medium text-start">Overview</h1>
 
           <select 
-            className="border border-gray-300 rounded-lg px-3 py-1 text-sm w-64"
+            className="border border-gray-300 rounded-lg px-3 py-1 text-sm w-64 h-8"
             value={selectedPeriod}
             onChange={(e) => setSelectedPeriod(e.target.value)}
           >
@@ -85,11 +85,11 @@ export default function DashboardLayout() {
               key={idx}
               onClick={() => setSelectedStat(stat.statKey)}
 
-              className={` cursor-pointer border rounded-lg p-4 text-center transition-all text-start ${
-                selectedStat === stat.statKey ? "border-b border-blue-500" : "border-b border-gray-200"
+              className={` cursor-pointer border rounded-t-lg p-4 text-center transition-all text-start ${
+                selectedStat === stat.statKey ? "border-gray-200 border-b-2 border-b-blue-500" : "border-b border-gray-200"
               }`}
             >
-              <div className="text-xs text-gray-600 mb-1">
+              <div className="text-xs text-gray-600 mb-1 flex flex-col justify-start items-start">
                 {stat.label} <br />
                 {selectedPeriod === "7days" ? "Last 7 days" : selectedPeriod === "30days" ? "Last 30 days" : "Last 90 days"}
               </div>
@@ -99,7 +99,7 @@ export default function DashboardLayout() {
         </div>
 
         {/* Chart */}
-        <div className="border border-gray-300 rounded-lg w-full h-64 p-4">
+        <div className="border border-gray-300 rounded-b-lg w-full h-64 p-4">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={chartData}>
               <XAxis dataKey="name" />
