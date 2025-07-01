@@ -9,10 +9,15 @@ import {
   LogOut,
 } from "lucide-react";
 import React from "react";
-import { Link, useLocation } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 
 const Sidebar = () => {
   const location = useLocation();
+  const router = useNavigate();
+
+  const handleLogOut = () => {
+    router("/signin");
+  };
 
   return (
     <aside className="w-64 bg-gray-50 border-r border-gray-200 p-4 flex flex-col justify-between">
@@ -61,30 +66,28 @@ const Sidebar = () => {
           />
         </div>
 
-        
         <div className="relative dropdown w-full">
-  <button
-    className="flex items-center justify-between w-full p-2 rounded-lg hover:bg-gray-100"
-  >
- 
-    <div className="flex items-center gap-2 avatar">
-      <User className="w-5 h-5" />
-      <span className="text-sm">username</span>
-    </div>
+          <button className="flex items-center justify-between w-full p-2 rounded-lg hover:bg-gray-100">
+            <div className="flex items-center gap-2 avatar">
+              <User className="w-5 h-5" />
+              <span className="text-sm">username</span>
+            </div>
 
-  
-    <div className="text-sm">☰</div>
-  </button>
+            <div className="text-sm">☰</div>
+          </button>
 
-  <div className="dropdown-content absolute left-0 bottom-full mb-2 bg-white border border-gray-200 rounded-md shadow-md w-full z-10">
-    <button className="w-full text-left px-4 py-2 hover:bg-gray-100 flex items-center gap-2">
-      <Settings className="w-6 h-6" /> Settings
-    </button>
-    <button className="w-full text-left px-4 py-2 hover:bg-gray-100 flex items-center gap-2">
-      <LogOut className="w-6 h-6" /> Sign Out
-    </button>
-  </div>
-</div>
+          <div className="dropdown-content absolute left-0 bottom-full mb-2 bg-white border border-gray-200 rounded-md shadow-md w-full z-10">
+            <button className="w-full text-left px-4 py-2 hover:bg-gray-100 flex items-center gap-2">
+              <Settings className="w-6 h-6" /> Settings
+            </button>
+            <button
+              className="w-full text-left px-4 py-2 hover:bg-gray-100 flex items-center gap-2"
+              onClick={handleLogOut}
+            >
+              <LogOut className="w-6 h-6" /> Sign Out
+            </button>
+          </div>
+        </div>
       </div>
     </aside>
   );

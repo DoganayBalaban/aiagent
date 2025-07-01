@@ -79,86 +79,85 @@ export default function WorkflowsLayout() {
           </div>
 
           {/* Tablo */}
-          <div className="border border-[#D9D9D9] rounded-lg ">
-            <div className="">
-              <table className="w-full text-sm">
-                <thead className="bg-[#D9D9D9] text-left text-lg">
-                  <tr>
-                    <th className="p-3 font-medium">Name</th>
-                    <th className="p-3 font-medium">Tag</th>
-                    <th className="p-3 font-medium">Created</th>
-                    <th className="p-3 font-medium">Updated</th>
-                    <th className="p-3 font-medium"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {workflows
-                    .filter((workflow) =>
-                      workflow.name
-                        .toLowerCase()
-                        .includes(searchQuery.toLowerCase())
-                    )
-                    .map((workflow) => (
-                      <tr key={workflow.id} className="hover:bg-[#F5F5F5]">
-                        <td className="p-3">{workflow.name}</td>
-                        <td className="p-3">{workflow.tag}</td>
-                        <td className="p-3">
-                          {workflow.created}
-                          <br />
-                        </td>
-                        <td className="p-3">
-                          {workflow.updated}
-                          <br />
-                        </td>
-                        <td className="p-3 relative">
-                          {/* DaisyUI Dropdown */}
-                          <div className="dropdown dropdown-end">
-                            <div
-                              tabIndex={0}
-                              role="button"
-                              className="btn btn-ghost btn-sm p-2"
-                            >
-                              <MoreVertical className="w-4 h-4" />
-                            </div>
-                            <ul
-                              tabIndex={0}
-                              className="dropdown-content z-[1000] menu p-2 shadow bg-base-100 border border-gray-200 rounded-box w-40 absolute right-0 top-full mt-1"
-                            >
-                              <li>
-                                <a>
-                                  <Pencil className="w-4 h-4" />
-                                  Rename
-                                </a>
-                              </li>
-                              <li>
-                                <a>
-                                  <Copy className="w-4 h-4" />
-                                  Duplicate
-                                </a>
-                              </li>
-                              <li>
-                                <a>
-                                  <Share className="w-4 h-4" />
-                                  Share
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  className="text-red-600"
-                                  onClick={() => handleDelete(workflow.id)}
-                                >
-                                  <Trash className="w-4 h-4" />
-                                  Delete
-                                </a>
-                              </li>
-                            </ul>
+
+          <div className="relative rounded-xl border border-gray-300">
+            <table className="w-full text-sm p-2 overflow-hidden">
+              <thead className="bg-[#F5F5F5] text-left text-md border-b border-gray-300">
+                <tr>
+                  <th className="p-6 font-normal text-base">Name</th>
+                  <th className="p-6 font-normal text-base">Tag</th>
+                  <th className="p-6 font-normal text-base">Created</th>
+                  <th className="p-6 font-normal text-base">Updated</th>
+                  <th className="p-6 font-normal text-base"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {workflows
+                  .filter((workflow) =>
+                    workflow.name
+                      .toLowerCase()
+                      .includes(searchQuery.toLowerCase())
+                  )
+                  .map((workflow) => (
+                    <tr key={workflow.id} className="border-b border-gray-300">
+                      <td className="p-6">{workflow.name}</td>
+                      <td className="p-6">{workflow.tag}</td>
+                      <td className="p-6">
+                        {workflow.created}
+                        <br />
+                      </td>
+                      <td className="p-6">
+                        {workflow.updated}
+                        <br />
+                      </td>
+                      <td className="p-6 relative">
+                        {/* DaisyUI Dropdown */}
+                        <div className="relative dropdown">
+                          <div
+                            tabIndex={0}
+                            role="button"
+                            className="btn btn-ghost btn-sm p-2"
+                          >
+                            <MoreVertical className="w-4 h-4" />
                           </div>
-                        </td>
-                      </tr>
-                    ))}
-                </tbody>
-              </table>
-            </div>
+                          <ul
+                            tabIndex={0}
+                            className="dropdown-content z-[1000] menu p-2 shadow bg-base-100 border border-gray-200 rounded-box w-40 absolute right-0 top-full mt-1"
+                          >
+                            <li>
+                              <a>
+                                <Pencil className="w-4 h-4" />
+                                Rename
+                              </a>
+                            </li>
+                            <li>
+                              <a>
+                                <Copy className="w-4 h-4" />
+                                Duplicate
+                              </a>
+                            </li>
+                            <li>
+                              <a>
+                                <Share className="w-4 h-4" />
+                                Share
+                              </a>
+                            </li>
+                            <li>
+                              <a
+                                className="text-red-600"
+                                onClick={() => handleDelete(workflow.id)}
+                              >
+                                <Trash className="w-4 h-4" />
+                                Delete
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </main>
