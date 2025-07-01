@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 import Sidebar from "~/components/dashboard/Sidebar";
 
 // Types
@@ -30,9 +37,27 @@ export default function DashboardLayout() {
   const [selectedPeriod, setSelectedPeriod] = useState("7days");
 
   const statsData: PeriodStats = {
-    "7days": { prodexec: 150, failedprod: 12, failurerate: "8%", timesaved: "45h", runtime: "3h" },
-    "30days": { prodexec: 650, failedprod: 45, failurerate: "7%", timesaved: "180h", runtime: "12h" },
-    "90days": { prodexec: 1800, failedprod: 120, failurerate: "6.7%", timesaved: "540h", runtime: "36h" },
+    "7days": {
+      prodexec: 150,
+      failedprod: 12,
+      failurerate: "8%",
+      timesaved: "45h",
+      runtime: "3h",
+    },
+    "30days": {
+      prodexec: 650,
+      failedprod: 45,
+      failurerate: "7%",
+      timesaved: "180h",
+      runtime: "12h",
+    },
+    "90days": {
+      prodexec: 1800,
+      failedprod: 120,
+      failurerate: "6.7%",
+      timesaved: "540h",
+      runtime: "36h",
+    },
   };
 
   const stats: Stat[] = [
@@ -47,9 +72,10 @@ export default function DashboardLayout() {
   const generateChartData = (): ChartData[] => {
     const rawValue = statsData[selectedPeriod][selectedStat];
 
-    const baseValue = typeof rawValue === "string"
-      ? parseFloat(rawValue.replace(/[^0-9.]/g, ""))
-      : rawValue;
+    const baseValue =
+      typeof rawValue === "string"
+        ? parseFloat(rawValue.replace(/[^0-9.]/g, ""))
+        : rawValue;
 
     return Array.from({ length: 7 }, (_, i) => ({
       name: `Day ${i + 1}`,
@@ -67,7 +93,7 @@ export default function DashboardLayout() {
         <div className="flex flex-col items-start gap-4 justify-between mb-6">
           <h1 className="text-4xl font-medium text-start">Overview</h1>
 
-          <select 
+          <select
             className="border border-gray-300 rounded-lg px-3 py-1 text-sm w-64 h-8"
             value={selectedPeriod}
             onChange={(e) => setSelectedPeriod(e.target.value)}
@@ -84,16 +110,23 @@ export default function DashboardLayout() {
             <button
               key={idx}
               onClick={() => setSelectedStat(stat.statKey)}
-
-              className={` cursor-pointer border rounded-t-lg p-4 text-center transition-all text-start ${
-                selectedStat === stat.statKey ? "border-gray-200 border-b-2 border-b-blue-500" : "border-b border-gray-200"
+              className={` cursor-pointer border rounded-t-lg p-4  transition-all text-start ${
+                selectedStat === stat.statKey
+                  ? "border-gray-200 border-b-2 border-b-blue-500"
+                  : "border-b border-gray-200"
               }`}
             >
               <div className="text-xs text-gray-600 mb-1 flex flex-col justify-start items-start">
                 {stat.label} <br />
-                {selectedPeriod === "7days" ? "Last 7 days" : selectedPeriod === "30days" ? "Last 30 days" : "Last 90 days"}
+                {selectedPeriod === "7days"
+                  ? "Last 7 days"
+                  : selectedPeriod === "30days"
+                  ? "Last 30 days"
+                  : "Last 90 days"}
               </div>
-              <div className="text-2xl font-bold">{statsData[selectedPeriod][stat.statKey]}</div>
+              <div className="text-2xl font-bold">
+                {statsData[selectedPeriod][stat.statKey]}
+              </div>
             </button>
           ))}
         </div>
@@ -105,7 +138,12 @@ export default function DashboardLayout() {
               <XAxis dataKey="name" />
               <YAxis />
               <Tooltip />
-              <Line type="monotone" dataKey="value" stroke="#2563eb" strokeWidth={2} />
+              <Line
+                type="monotone"
+                dataKey="value"
+                stroke="#2563eb"
+                strokeWidth={2}
+              />
             </LineChart>
           </ResponsiveContainer>
         </div>

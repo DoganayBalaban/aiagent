@@ -1,5 +1,5 @@
 // DashboardLayout.jsx
-import { MoreVertical, Plus, X } from "lucide-react";
+import { MoreVertical, Pencil, Plus, Search, Trash, X } from "lucide-react";
 import React, { useState } from "react";
 import { Link } from "react-router";
 
@@ -7,73 +7,169 @@ import Sidebar from "~/components/dashboard/Sidebar";
 
 export default function CredentialsLayout() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [menuOpen, setMenuOpen] = useState(false);
-
+  const [credentials, setCredentials] = useState([
+    {
+      id: 1,
+      name: "OpenAI API",
+      logo: "https://www.svgrepo.com/show/306500/openai.svg",
+      updated: "June 26th, 2025",
+      created: "June 26th, 2025",
+    },
+    {
+      id: 2,
+      name: "GitHub API",
+      logo: "https://cdn-icons-png.flaticon.com/512/25/25231.png",
+      updated: "June 30th, 2025",
+      created: "June 30th, 2025",
+    },
+  ]);
+  const [apiKeys, setApiKeys] = useState([
+    {
+      id: 1,
+      name: "OpenAI API",
+      logo: "https://www.svgrepo.com/show/306500/openai.svg",
+    },
+    {
+      id: 2,
+      name: "GitHub API",
+      logo: "https://cdn-icons-png.flaticon.com/512/25/25231.png",
+    },
+    {
+      id: 3,
+      name: "Google API",
+      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/1200px-Google_%22G%22_logo.svg.png",
+    },
+  ]);
 
   return (
     <div className="flex h-screen w-screen">
-    
-     <Sidebar/>
+      <Sidebar />
 
       {/* Main Content */}
-      <main className="flex-1 p-8">
+      <main className="flex-1 p-10 m-10 bg-white">
         <div className="flex justify-between items-center mb-6">
-         <div className="flex flex-col items-start gap-4">
-          <h1 className="text-4xl font-medium text-start">Credentials</h1>
-          <select className="border border-gray-300 rounded-lg px-3 py-1 text-sm w-32">
-            <option className="text-sm">Last 7 days</option>
-          </select>
+          <div className="flex flex-col items-start gap-4">
+            <h1 className="text-4xl font-medium text-start">Credentials</h1>
+            <select className="border border-gray-300 rounded-lg px-3 py-1 text-sm w-32">
+              <option className="text-sm">Last 7 days</option>
+            </select>
           </div>
           <div className="flex items-center gap-6">
-            <div className="flex items-center gap-2">
-              <input type="text" placeholder="Search" className="border border-gray-300 rounded px-3 py-1 text-sm rounded-md " value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}/>
-              <X className="w-4 h-4 cursor-pointer absolute text-black " onClick={() => setSearchQuery("")}/>
+            <div className="flex items-center gap-6 justify-center">
+              <div className="flex gap-2 p-3 flex-col items-start">
+                <label className="input w-full rounded-2xl border flex items-center gap-2 px-2 py-1">
+                  <Search className="h-4 w-4 opacity-50" />
+                  <input
+                    type="search"
+                    className="grow"
+                    placeholder="Search"
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                </label>
+              </div>
             </div>
-          <div className="flex items-center gap-2">
-            <button className="flex items-center gap-2 p-2 rounded-lg hover:bg-[#F5F5F5] transition duration-500">
-            <Link to="/canvas" className="flex items-center gap-2"> <Plus className="w-4 h-4"/>Create Credential</Link>
-            </button></div>
+            {/* Open the modal using document.getElementById('ID').showModal() method */}
+            <button
+              className="btn"
+              onClick={() => {
+                const dialog = document.getElementById(
+                  "my_modal_2"
+                ) as HTMLDialogElement;
+                if (dialog) {
+                  dialog.showModal();
+                }
+              }}
+            >
+              Create Credential
+            </button>
+            <dialog id="my_modal_2" className="modal">
+              <div>
+                <div className="modal-box">
+                  <h3 className="font-bold text-lg">Add New Credential</h3>
+                  <div className="flex items-center gap-6 justify-center w-full">
+                    <div className="flex gap-2 p-3 flex-col items-start w-full">
+                      <label className="input w-full rounded-2xl border flex items-center gap-2 px-2 py-1">
+                        <Search className="h-4 w-4 opacity-50" />
+                        <input
+                          type="search"
+                          className="grow w-full"
+                          placeholder="Search"
+                          onChange={(e) => setSearchQuery(e.target.value)}
+                        />
+                      </label>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-3 gap-4">
+                    {apiKeys.map((apiKey) => (
+                      <div
+                        key={apiKey.id}
+                        className="flex items-center justify-center gap-2 w-full border rounded-2xl p-3 hover:bg-[#ede7f6] hover:text-[#9664E0]"
+                      >
+                        <img src={apiKey.logo} className="w-8 h-8" alt="" />
+                        <h2 className="text-lg font-light">{apiKey.name}</h2>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <form method="dialog" className="modal-backdrop">
+                <button>close</button>
+              </form>
+            </dialog>
           </div>
         </div>
-
-        <div className="border border-[#D9D9D9] rounded-lg ">
-        <table className="w-full text-sm">
-          <thead className="bg-[#D9D9D9] text-left">
-            <tr>
-              <th className="p-3">Name</th>
-              <th className="p-3">Tag</th>
-              <th className="p-3">Created</th>
-              <th className="p-3">Updated</th>
-              <th className="p-3"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className="hover:bg-[#F5F5F5]">
-              <td className="p-3">workflow</td>
-              <td className="p-3">buisness</td>
-              <td className="p-3">June 26th, 2025<br />09:16:37</td>
-              <td className="p-3">June 26th, 2025<br />09:16:37</td>
-              <td className="p-3 relative">
-                <button onClick={() => setMenuOpen(!menuOpen)}>
-                  <MoreVertical className="w-4 h-4" />
-                </button>
-                {menuOpen && (
-                  <div className="absolute right-0 mt-2 bg-white border border-[#D9D9D9] rounded-md shadow-md w-32 text-sm z-10">
-                    <button className="w-full text-left px-4 py-2 hover:bg-[#F5F5F5]">Rename</button>
-                    <button className="w-full text-left px-4 py-2 hover:bg-[#F5F5F5]">Duplicate</button>
-                    <button className="w-full text-left px-4 py-2 hover:bg-[#F5F5F5]">Share</button>
-                    <button className="w-full text-left px-4 py-2 hover:bg-[#F5F5F5] text-red-600">Delete</button>
-                  </div>
-                )}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-     
+        {credentials.length === 0 ? (
+          <p>No credentials found</p>
+        ) : (
+          <div className="overflow-hidden rounded-xl border border-gray-300">
+            <table className="w-full text-sm p-2">
+              <thead className="bg-[#F5F5F5] text-left text-md border-b border-gray-300 ">
+                <tr className="">
+                  <th className="p-6 font-normal text-base">Name</th>
+                  <th className="p-6 font-normal text-base">Created</th>
+                  <th className="p-6 font-normal text-base">Updated</th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {credentials
+                  .filter((credential) =>
+                    credential.name
+                      .toLowerCase()
+                      .includes(searchQuery.toLowerCase())
+                  )
+                  .map((credential) => (
+                    <tr
+                      key={credential.id}
+                      className="border-b border-gray-300"
+                    >
+                      <td className="p-6 flex items-center gap-2 ">
+                        <img src={credential.logo} className="w-8 h-8" alt="" />
+                        {credential.name}
+                      </td>
+                      <td className="p-3">
+                        {credential.updated}
+                        <br />
+                      </td>
+                      <td className="p-3">
+                        {credential.created}
+                        <br />
+                      </td>
+                      <td className="">
+                        <Pencil className="w-5 h-5 text-[#9664E0]" />
+                      </td>
+                      <td className="">
+                        <Trash className="w-5 h-5 text-[#F44336]" />
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </main>
     </div>
   );
 }
-

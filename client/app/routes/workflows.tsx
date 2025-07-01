@@ -40,7 +40,7 @@ export default function WorkflowsLayout() {
       <Sidebar />
 
       {/* Main Content */}
-      <main className="flex-1 p-8 bg-white">
+      <main className="flex-1 p-10 m-10 bg-white">
         {/* Container: Sayfayı ortala ve sınırlı genişlik ver */}
         <div className="max-w-screen-xl mx-auto">
           {/* Başlık ve üst filtre alanı */}
