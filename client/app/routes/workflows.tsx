@@ -47,7 +47,7 @@ export default function WorkflowsLayout() {
           <div className="flex justify-between items-center mb-6">
             <div className="flex flex-col items-start gap-4">
               <h1 className="text-4xl font-medium text-start">Workflows</h1>
-              <select className="border border-gray-500 rounded-lg px-3 py-1 text-sm w-64">
+              <select className="border border-gray-500 rounded-lg px-3 py-1 text-sm w-64 h-10">
                 <option className="text-sm">Last 7 days</option>
               </select>
             </div>
@@ -58,7 +58,7 @@ export default function WorkflowsLayout() {
                   <Search className="h-4 w-4 opacity-50" />
                   <input
                     type="search"
-                    className="grow"
+                    className="grow w-62"
                     placeholder="Search"
                     onChange={(e) => setSearchQuery(e.target.value)}
                   />

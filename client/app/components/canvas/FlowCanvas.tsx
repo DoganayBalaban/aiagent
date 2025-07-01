@@ -33,6 +33,7 @@ function FlowCanvas() {
   const onConnect = useCallback(
     (params: any) => {
       setEdges((eds) => addEdge({ ...params, type: "custom" }, eds));
+      console.log(params);
     },
     [setEdges]
   );

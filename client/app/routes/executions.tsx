@@ -40,18 +40,18 @@ export default function ExecutionsLayout() {
           <div className="flex justify-between items-center mb-6">
             <div className="flex flex-col items-start gap-4">
               <h1 className="text-4xl font-medium text-start">Executions</h1>
-              <select className="border border-gray-500 rounded-lg px-3 py-1 text-sm w-64">
+              <select className="border border-gray-500 rounded-lg px-3 py-1 text-sm w-64 h-10">
                 <option className="text-sm">Last 7 days</option>
               </select>
             </div>
 
             <div className="flex items-center gap-6 justify-center">
               <div className="flex gap-2 p-3 flex-col items-start">
-                <label className="input w-full rounded-2xl border flex items-center gap-2 px-2 py-1">
+                <label className="input w-full rounded-2xl border flex items-center gap-2 px-2 py-1 ">
                   <Search className="h-4 w-4 opacity-50" />
                   <input
                     type="search"
-                    className="grow"
+                    className="grow w-62"
                     placeholder="Search"
                     onChange={(e) => setSearchQuery(e.target.value)}
                   />
