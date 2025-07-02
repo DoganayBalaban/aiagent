@@ -195,12 +195,12 @@ export default function CredentialsLayout() {
                         <button
                           className="flex items-center gap-2 p-2 rounded-lg hover:bg-[#F5F5F5] transition duration-500 h-10 cursor-pointer"
                           onClick={() =>
-                            document.getElementById("my_modal_1")?.showModal()
+                            document.getElementById("deleteModal")?.showModal()
                           }
                         >
                           <Trash className="w-5 h-5 text-[#F44336]" />
                         </button>
-                        <dialog id="my_modal_1" className="modal">
+                        <dialog id="deleteModal" className="modal">
                           <div className="modal-box">
                             <h3 className="font-bold text-lg">Delete</h3>
                             <p className="py-4">
