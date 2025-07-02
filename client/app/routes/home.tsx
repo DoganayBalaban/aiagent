@@ -90,62 +90,64 @@ export default function DashboardLayout() {
       <Sidebar />
 
       <main className="flex-1 p-10 m-10">
-        <div className="flex flex-col items-start gap-4 justify-between mb-6">
-          <h1 className="text-4xl font-medium text-start">Overview</h1>
+        <div className="max-w-screen-xl mx-auto">
+          <div className="flex flex-col items-start gap-4 justify-between mb-6">
+            <h1 className="text-4xl font-medium text-start">Overview</h1>
 
-          <select
-            className="border border-gray-300 rounded-lg px-3 py-1 text-sm w-64 h-8"
-            value={selectedPeriod}
-            onChange={(e) => setSelectedPeriod(e.target.value)}
-          >
-            <option value="7days">Last 7 days</option>
-            <option value="30days">Last 30 days</option>
-            <option value="90days">Last 90 days</option>
-          </select>
-        </div>
-
-        {/* Stat Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-5 cursor-pointer">
-          {stats.map((stat, idx) => (
-            <button
-              key={idx}
-              onClick={() => setSelectedStat(stat.statKey)}
-              className={` cursor-pointer border rounded-t-lg p-4  transition-all text-start ${
-                selectedStat === stat.statKey
-                  ? "border-gray-200 border-b-2 border-b-blue-500"
-                  : "border-b border-gray-200"
-              }`}
+            <select
+              className="border border-gray-300 rounded-lg px-3 py-1 text-sm w-64 h-8"
+              value={selectedPeriod}
+              onChange={(e) => setSelectedPeriod(e.target.value)}
             >
-              <div className="text-xs text-gray-600 mb-1 flex flex-col justify-start items-start">
-                {stat.label} <br />
-                {selectedPeriod === "7days"
-                  ? "Last 7 days"
-                  : selectedPeriod === "30days"
-                  ? "Last 30 days"
-                  : "Last 90 days"}
-              </div>
-              <div className="text-2xl font-bold">
-                {statsData[selectedPeriod][stat.statKey]}
-              </div>
-            </button>
-          ))}
-        </div>
+              <option value="7days">Last 7 days</option>
+              <option value="30days">Last 30 days</option>
+              <option value="90days">Last 90 days</option>
+            </select>
+          </div>
 
-        {/* Chart */}
-        <div className="border border-gray-300 rounded-b-lg w-full h-64 p-4">
-          <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={chartData}>
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Line
-                type="monotone"
-                dataKey="value"
-                stroke="#2563eb"
-                strokeWidth={2}
-              />
-            </LineChart>
-          </ResponsiveContainer>
+          {/* Stat Cards */}
+          <div className="grid grid-cols-2 md:grid-cols-5 cursor-pointer">
+            {stats.map((stat, idx) => (
+              <button
+                key={idx}
+                onClick={() => setSelectedStat(stat.statKey)}
+                className={` cursor-pointer border rounded-t-lg p-4  transition-all text-start ${
+                  selectedStat === stat.statKey
+                    ? "border-gray-200 border-b-2 border-b-blue-500"
+                    : "border-b border-gray-200"
+                }`}
+              >
+                <div className="text-xs text-gray-600 mb-1 flex flex-col justify-start items-start">
+                  {stat.label} <br />
+                  {selectedPeriod === "7days"
+                    ? "Last 7 days"
+                    : selectedPeriod === "30days"
+                    ? "Last 30 days"
+                    : "Last 90 days"}
+                </div>
+                <div className="text-2xl font-bold">
+                  {statsData[selectedPeriod][stat.statKey]}
+                </div>
+              </button>
+            ))}
+          </div>
+
+          {/* Chart */}
+          <div className="border border-gray-300 rounded-b-lg w-full h-64 p-4">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={chartData}>
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Line
+                  type="monotone"
+                  dataKey="value"
+                  stroke="#2563eb"
+                  strokeWidth={2}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
         </div>
       </main>
     </div>

@@ -116,121 +116,131 @@ export default function CredentialsLayout() {
 
       {/* Main Content */}
       <main className="flex-1 p-10 m-10 bg-white">
-        <div className="flex justify-between items-center mb-6">
-          <div className="flex flex-col items-start gap-4">
-            <h1 className="text-4xl font-medium text-start">Credentials</h1>
-            <select className="border border-gray-300 rounded-lg px-3 py-1 text-sm w-64 h-10">
-              <option className="text-sm">Last 7 days</option>
-            </select>
-          </div>
-
-          {/* Search & Create Button */}
-          <div className="flex items-center gap-6">
-            <div className="flex items-center gap-6 justify-center">
-              <div className="flex gap-2 p-3 flex-col items-start">
-                <label className="input w-full rounded-2xl border flex items-center gap-2 px-2 py-1 ">
-                  <Search className="h-4 w-4 opacity-50" />
-                  <input
-                    type="search"
-                    className="grow w-62"
-                    placeholder="Search"
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                  />
-                </label>
-              </div>
+        <div className="max-w-screen-xl mx-auto">
+          <div className="flex justify-between items-center mb-6">
+            <div className="flex flex-col items-start gap-4">
+              <h1 className="text-4xl font-medium text-start">Credentials</h1>
+              <select className="border border-gray-300 rounded-lg px-3 py-1 text-sm w-64 h-10">
+                <option className="text-sm">Last 7 days</option>
+              </select>
             </div>
 
-            <button
-              className="flex items-center gap-2 p-2 rounded-lg hover:bg-[#F5F5F5] transition duration-500 h-10 cursor-pointer"
-              onClick={() =>
-                (
-                  document.getElementById("my_modal_1") as HTMLDialogElement
-                )?.showModal()
-              }
-            >
-              <Plus className="w-4 h-4" />
-              Create Credential
-            </button>
-          </div>
-        </div>
+            {/* Search & Create Button */}
+            <div className="flex items-center gap-6">
+              <div className="flex items-center gap-6 justify-center">
+                <div className="flex gap-2 p-3 flex-col items-start">
+                  <label className="input w-full rounded-2xl border flex items-center gap-2 px-2 py-1 ">
+                    <Search className="h-4 w-4 opacity-50" />
+                    <input
+                      type="search"
+                      className="grow w-62"
+                      placeholder="Search"
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                  </label>
+                </div>
+              </div>
 
-        {/* Table */}
-        {credentials.length === 0 ? (
-          <p>No credentials found</p>
-        ) : (
-          <div className="overflow-hidden rounded-xl border border-gray-300">
-            <table className="w-full text-sm p-2">
-              <thead className="bg-[#F5F5F5] text-left text-md border-b border-gray-300 ">
-                <tr>
-                  <th className="p-6 font-normal text-base">Name</th>
-                  <th className="p-6 font-normal text-base">Created</th>
-                  <th className="p-6 font-normal text-base">Updated</th>
-                  <th></th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {credentials
-                  .filter((credential) =>
-                    credential.name
-                      .toLowerCase()
-                      .includes(searchQuery.toLowerCase())
-                  )
-                  .map((credential) => (
-                    <tr
-                      key={credential.id}
-                      className="border-b border-gray-300"
-                    >
-                      <td className="p-6 flex items-center gap-4">
-                        <img src={credential.logo} className="w-8 h-8" alt="" />
-                        {credential.name}
-                      </td>
-                      <td className="p-3">{credential.created}</td>
-                      <td className="p-3">{credential.updated}</td>
-                      <td className="">
-                        <Pencil className="w-5 h-5 text-[#9664E0]" />
-                      </td>
-                      <td className="">
-                        {/* Open the modal using document.getElementById('ID').showModal() method */}
-                        <button
-                          className="flex items-center gap-2 p-2 rounded-lg hover:bg-[#F5F5F5] transition duration-500 h-10 cursor-pointer"
-                          onClick={() =>
-                            document.getElementById("deleteModal")?.showModal()
-                          }
-                        >
-                          <Trash className="w-5 h-5 text-[#F44336]" />
-                        </button>
-                        <dialog id="deleteModal" className="modal">
-                          <div className="modal-box">
-                            <h3 className="font-bold text-lg">Delete</h3>
-                            <p className="py-4">
-                              Are you sure you want to delete {credential.name}{" "}
-                              credential?
-                            </p>
-                            <div className="modal-action">
-                              <form
-                                method="dialog"
-                                className="flex items-center gap-2"
-                              >
-                                {/* if there is a button in form, it will close the modal */}
-                                <button className="btn">Cancel</button>
-                                <button
-                                  className="btn btn-error"
-                                  onClick={() => handleDelete(credential.id)}
-                                >
-                                  Delete
-                                </button>
-                              </form>
-                            </div>
-                          </div>
-                        </dialog>
-                      </td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
+              <button
+                className="flex items-center gap-2 p-2 rounded-lg hover:bg-[#F5F5F5] transition duration-500 h-10 cursor-pointer"
+                onClick={() =>
+                  (
+                    document.getElementById("my_modal_1") as HTMLDialogElement
+                  )?.showModal()
+                }
+              >
+                <Plus className="w-4 h-4" />
+                Create Credential
+              </button>
+            </div>
           </div>
-        )}
+
+          {/* Table */}
+          {credentials.length === 0 ? (
+            <p>No credentials found</p>
+          ) : (
+            <div className="overflow-hidden rounded-xl border border-gray-300">
+              <table className="w-full text-sm p-2">
+                <thead className="bg-[#F5F5F5] text-left text-md border-b border-gray-300 ">
+                  <tr>
+                    <th className="p-6 font-normal text-base">Name</th>
+                    <th className="p-6 font-normal text-base">Created</th>
+                    <th className="p-6 font-normal text-base">Updated</th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {credentials
+                    .filter((credential) =>
+                      credential.name
+                        .toLowerCase()
+                        .includes(searchQuery.toLowerCase())
+                    )
+                    .map((credential) => (
+                      <tr
+                        key={credential.id}
+                        className="border-b border-gray-300"
+                      >
+                        <td className="p-6 flex items-center gap-4">
+                          <img
+                            src={credential.logo}
+                            className="w-8 h-8"
+                            alt=""
+                          />
+                          {credential.name}
+                        </td>
+                        <td className="p-3">{credential.created}</td>
+                        <td className="p-3">{credential.updated}</td>
+                        <td className="">
+                          <Pencil className="w-5 h-5 text-[#9664E0]" />
+                        </td>
+                        <td className="">
+                          {/* Open the modal using document.getElementById('ID').showModal() method */}
+                          <button
+                            className="flex items-center gap-2 p-2 rounded-lg hover:bg-[#F5F5F5] transition duration-500 h-10 cursor-pointer"
+                            onClick={() =>
+                              (
+                                document.getElementById(
+                                  "deleteModal"
+                                ) as HTMLDialogElement
+                              )?.showModal()
+                            }
+                          >
+                            <Trash className="w-5 h-5 text-[#F44336]" />
+                          </button>
+                          <dialog id="deleteModal" className="modal">
+                            <div className="modal-box">
+                              <h3 className="font-bold text-lg">Delete</h3>
+                              <p className="py-4">
+                                Are you sure you want to delete{" "}
+                                {credential.name} credential?
+                              </p>
+                              <div className="modal-action">
+                                <form
+                                  method="dialog"
+                                  className="flex items-center gap-2"
+                                >
+                                  {/* if there is a button in form, it will close the modal */}
+                                  <button className="btn">Cancel</button>
+                                  <button
+                                    className="btn btn-error"
+                                    onClick={() => handleDelete(credential.id)}
+                                  >
+                                    Delete
+                                  </button>
+                                </form>
+                              </div>
+                            </div>
+                          </dialog>
+                        </td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
       </main>
 
       {/* First Modal: Select API */}
