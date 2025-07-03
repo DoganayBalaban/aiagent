@@ -47,6 +47,10 @@ export default function WorkflowsLayout() {
           <div className="flex justify-between items-center mb-6">
             <div className="flex flex-col items-start gap-4">
               <h1 className="text-4xl font-medium text-start">Workflows</h1>
+              <p className="text-gray-600">
+                Create, edit, and manage your automated workflows visually and
+                intuitively.
+              </p>
               <select className="border border-gray-500 rounded-lg px-3 py-1 text-sm w-64 h-10">
                 <option className="text-sm">Last 7 days</option>
               </select>

@@ -120,6 +120,10 @@ export default function CredentialsLayout() {
           <div className="flex justify-between items-center mb-6">
             <div className="flex flex-col items-start gap-4">
               <h1 className="text-4xl font-medium text-start">Credentials</h1>
+              <p className="text-gray-600">
+                Manage and securely store your API keys, tokens, and third-party
+                service credentials.
+              </p>
               <select className="border border-gray-300 rounded-lg px-3 py-1 text-sm w-64 h-10">
                 <option className="text-sm">Last 7 days</option>
               </select>
@@ -167,7 +171,7 @@ export default function CredentialsLayout() {
                     <th className="p-6 font-normal text-base">Created</th>
                     <th className="p-6 font-normal text-base">Updated</th>
                     <th></th>
-                    <th></th>
+                    <th className="p-6 font-medium text-base">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -192,39 +196,59 @@ export default function CredentialsLayout() {
                         </td>
                         <td className="p-3">{credential.created}</td>
                         <td className="p-3">{credential.updated}</td>
-                        <td className="">
-                          <Pencil className="w-5 h-5 text-[#9664E0]" />
-                        </td>
-                        <td className="">
-                          {/* Open the modal using document.getElementById('ID').showModal() method */}
-                          <button
-                            className="flex items-center gap-2 p-2 rounded-lg hover:bg-[#F5F5F5] transition duration-500 h-10 cursor-pointer"
-                            onClick={() =>
-                              (
-                                document.getElementById(
-                                  "deleteModal"
-                                ) as HTMLDialogElement
-                              )?.showModal()
-                            }
+                        <td></td>
+
+                        <td className="p-6">
+                          <div className="flex items-center gap-1">
+                            <button
+                              className="p-2 rounded-lg hover:bg-purple-50 transition duration-200 group"
+                              title="Edit variable"
+                            >
+                              <Pencil className="w-4 h-4 text-gray-400 group-hover:text-[#9664E0]" />
+                            </button>
+                            <button
+                              className="p-2 rounded-lg hover:bg-red-50 transition duration-200 group"
+                              title="Delete variable"
+                              onClick={() =>
+                                (
+                                  document.getElementById(
+                                    `deleteModal-${credential.id}`
+                                  ) as HTMLDialogElement
+                                )?.showModal()
+                              }
+                            >
+                              <Trash className="w-4 h-4 text-gray-400 group-hover:text-red-500" />
+                            </button>
+                          </div>
+
+                          {/* Delete Modal for each variable */}
+                          <dialog
+                            id={`deleteModal-${credential.id}`}
+                            className="modal"
                           >
-                            <Trash className="w-5 h-5 text-[#F44336]" />
-                          </button>
-                          <dialog id="deleteModal" className="modal">
                             <div className="modal-box">
-                              <h3 className="font-bold text-lg">Delete</h3>
+                              <h3 className="font-bold text-lg">
+                                Delete Credential
+                              </h3>
                               <p className="py-4">
                                 Are you sure you want to delete{" "}
-                                {credential.name} credential?
+                                <strong className="font-mono">
+                                  {credential.name}
+                                </strong>
+                                ?
+                                <br />
+                                <span className="text-red-600 text-sm">
+                                  This action cannot be undone.
+                                </span>
                               </p>
                               <div className="modal-action">
                                 <form
                                   method="dialog"
                                   className="flex items-center gap-2"
                                 >
-                                  {/* if there is a button in form, it will close the modal */}
                                   <button className="btn">Cancel</button>
                                   <button
-                                    className="btn btn-error"
+                                    className="btn bg-red-500 hover:bg-red-600 text-white"
                                     onClick={() => handleDelete(credential.id)}
                                   >
                                     Delete

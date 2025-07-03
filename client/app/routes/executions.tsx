@@ -40,6 +40,10 @@ export default function ExecutionsLayout() {
           <div className="flex justify-between items-center mb-6">
             <div className="flex flex-col items-start gap-4">
               <h1 className="text-4xl font-medium text-start">Executions</h1>
+              <p className="text-gray*600">
+                View and monitor all your workflow executions with detailed logs
+                and statuses.
+              </p>
               <select className="border border-gray-500 rounded-lg px-3 py-1 text-sm w-64 h-10">
                 <option className="text-sm">Last 7 days</option>
               </select>

@@ -93,6 +93,10 @@ export default function DashboardLayout() {
         <div className="max-w-screen-xl mx-auto">
           <div className="flex flex-col items-start gap-4 justify-between mb-6">
             <h1 className="text-4xl font-medium text-start">Overview</h1>
+            <p className="text-gray-600">
+              Get an overview of your activity, recent executions, and system
+              health at a glance.
+            </p>
 
             <select
               className="border border-gray-300 rounded-lg px-3 py-1 text-sm w-64 h-8"
