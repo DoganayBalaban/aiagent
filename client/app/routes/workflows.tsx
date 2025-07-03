@@ -68,17 +68,13 @@ export default function WorkflowsLayout() {
                   />
                 </label>
               </div>
-              <div className="flex items-center gap-2">
-                <button className="flex items-center gap-2 p-2 rounded-lg hover:bg-[#F5F5F5] transition duration-500 h-10">
-                  <Link
-                    to="/canvas"
-                    className="flex items-center gap-2 text-sm"
-                  >
-                    <Plus className="w-4 h-4" />
-                    Create Workflow
-                  </Link>
+
+              <Link to="/canvas" className="">
+                <button className="flex items-center gap-2 px-4 py-2 bg-[#9664E0] text-white rounded-lg hover:bg-[#8557d4] transition duration-200">
+                  <Plus className="w-4 h-4" />
+                  Create Workflow
                 </button>
-              </div>
+              </Link>
             </div>
           </div>
 
