@@ -107,7 +107,7 @@ function FlowCanvas() {
           edgeTypes={edgeTypes}
           fitView
         >
-          <Controls position="top-right" />
+          <Controls position="bottom-left" />
           <Background gap={20} size={1} />
           <MiniMap />
         </ReactFlow>

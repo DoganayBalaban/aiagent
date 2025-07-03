@@ -26,30 +26,10 @@ function ConditionNode({ data, id }: ConditionNodeProps) {
     );
   };
 
-  const getStatusColor = () => {
-    if (
-      data?.conditions?.length > 0 &&
-      data?.conditions?.every((c: any) => c.value1 && c.value2)
-    ) {
-      return "border-green-400 bg-green-100 hover:bg-green-200";
-    }
-    return "border-orange-400 bg-orange-100 hover:bg-orange-200";
-  };
-
-  const getStatusIcon = () => {
-    if (
-      data?.conditions?.length > 0 &&
-      data?.conditions?.every((c: any) => c.value1 && c.value2)
-    ) {
-      return <CheckCircle className="w-4 h-4 text-green-600" />;
-    }
-    return <AlertCircle className="w-4 h-4 text-orange-600" />;
-  };
-
   return (
     <>
       <div
-        className={`relative flex items-center gap-3 px-6 py-4 rounded-2xl border-2 text-gray-700 font-medium cursor-pointer transition-all ${getStatusColor()}`}
+        className={`relative flex items-center gap-3 px-4 py-4 rounded-2xl border-2 text-gray-700 font-medium cursor-pointer transition-all border-yellow-400 bg-yellow-100 hover:bg-yellow-200`}
         onDoubleClick={handleDoubleClick}
         title="Çift tıklayarak konfigüre edin"
       >
@@ -60,12 +40,6 @@ function ConditionNode({ data, id }: ConditionNodeProps) {
         <div className="flex-1">
           <div className="flex items-center gap-2">
             <p className="font-semibold">{data?.name || "Condition"}</p>
-            {getStatusIcon()}
-          </div>
-          <div className="text-xs text-gray-600 mt-1">
-            {data?.conditions?.length > 0
-              ? `${data.conditions.length} kural tanımlı`
-              : "Konfigürasyon gerekli"}
           </div>
         </div>
 

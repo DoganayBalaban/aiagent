@@ -5,22 +5,22 @@ import DraggableNode from "./DraggableNode";
 const NODE_TYPE_LIST = [
   {
     id: "1",
+    type: "start",
+    label: "Start",
+    data: {},
+  },
+  {
+    id: "2",
     type: "toolAgent",
-    label: "Tool Agent",
+    label: "Agent",
     data: {
-      name: "Tool Agent",
+      name: "Agent",
       tools: [],
       memory: { type: "buffer", size: 100 },
       model: { provider: "openai", model: "gpt-4" },
       prompt: "Sen yardımcı bir AI asistanısın.",
       moderation: { enabled: false },
     },
-  },
-  {
-    id: "2",
-    type: "start",
-    label: "Start",
-    data: {},
   },
   {
     id: "3",
@@ -44,7 +44,7 @@ const NODE_TYPE_LIST = [
 
 function Sidebar() {
   return (
-    <div className="w-64 bg-gray-50  border-r border-gray-200 overflow-y-auto h-screen">
+    <div className="w-64 border-r border-gray-200">
       {/* Search Input */}
       <div className="flex gap-2 mb-4 p-3 flex-col items-start">
         <h3 className="font-bold mb-4 text-gray-700">Add Nodes</h3>
