@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Formik } from "formik";
+import { useNavigate } from "react-router";
 
 interface SignInFormValues {
   email: string;
@@ -7,6 +8,7 @@ interface SignInFormValues {
 }
 
 const Signin = () => {
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-8">
       <div className="w-full max-w-md">
@@ -44,6 +46,7 @@ const Signin = () => {
               );
               setSubmitting(false);
             }, 1000);
+            navigate("/");
           }}
         >
           {({
@@ -85,12 +88,6 @@ const Signin = () => {
                   <label className="block text-sm font-medium text-gray-700">
                     Password
                   </label>
-                  <a
-                    href="#"
-                    className="text-sm text-purple-600 hover:text-purple-700 transition-colors duration-200"
-                  >
-                    Şifreni mi unuttun?
-                  </a>
                 </div>
                 <input
                   type="password"
@@ -105,9 +102,16 @@ const Signin = () => {
                   }`}
                   placeholder="••••••"
                 />
+
                 {errors.password && touched.password && (
                   <p className="text-red-500 text-sm">{errors.password}</p>
                 )}
+                <a
+                  href="#"
+                  className="text-sm text-purple-600 hover:text-purple-700 transition-colors duration-200"
+                >
+                  Şifreni mi unuttun?
+                </a>
               </div>
 
               {/* Login Button */}

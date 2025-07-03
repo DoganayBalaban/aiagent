@@ -1,5 +1,6 @@
 import React from "react";
 import { Formik } from "formik";
+import { useNavigate } from "react-router";
 
 interface RegisterFormValues {
   fullName: string;
@@ -9,6 +10,7 @@ interface RegisterFormValues {
 }
 
 const Register = () => {
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-8">
       <div className="w-full max-w-md">
@@ -68,6 +70,7 @@ const Register = () => {
               );
               setSubmitting(false);
             }, 1000);
+            navigate("/");
           }}
         >
           {({

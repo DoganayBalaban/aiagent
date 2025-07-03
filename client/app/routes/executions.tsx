@@ -90,17 +90,17 @@ export default function ExecutionsLayout() {
                         className="border-b border-gray-300"
                       >
                         <td className="p-6">{execution.name}</td>
-                        {execution.status === "success" ? (
-                          <td className="p-6 text-green-500 flex items-center gap-2">
-                            <Check />
-                            Success
-                          </td>
-                        ) : (
-                          <td className="p-6 text-red-500 flex items-center gap-2">
-                            <X />
-                            Failed
-                          </td>
-                        )}
+                        <td className="p-6">
+                          <span
+                            className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                              execution.status === "success"
+                                ? "bg-green-100 text-green-800"
+                                : "bg-red-100 text-red-800"
+                            }`}
+                          >
+                            {execution.status}
+                          </span>
+                        </td>
                         <td className="p-6">
                           {execution.started}
                           <br />
