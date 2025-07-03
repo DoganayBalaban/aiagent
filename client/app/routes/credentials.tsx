@@ -1,11 +1,20 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { Pencil, Plus, Search, Trash } from "lucide-react";
+import { Key, Pencil, Plus, Search, Trash } from "lucide-react";
 import React, { useState } from "react";
 import { Link } from "react-router";
 
 import Sidebar from "~/components/dashboard/Sidebar";
+import { useSelector } from "react-redux";
+import {
+  addCredential,
+  deleteCredential,
+} from "~/redux/slices/credentialsSlice";
+import { useDispatch } from "react-redux";
+import type { RootState } from "~/redux/store";
 
 export default function CredentialsLayout() {
+  const { credentials } = useSelector((state: RootState) => state.credentials);
+  const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = useState("");
   interface Api {
     id: number;
@@ -16,25 +25,15 @@ export default function CredentialsLayout() {
     name: string;
     apiKey: string;
   }
+  interface Credential {
+    id: number;
+    name: string;
+    logo: string;
+    updated: string;
+    created: string;
+  }
 
   const [selectedApi, setSelectedApi] = useState<Api | null>(null);
-
-  const [credentials, setCredentials] = useState([
-    {
-      id: 1,
-      name: "OpenAI API",
-      logo: "https://www.svgrepo.com/show/306500/openai.svg",
-      updated: "June 26th, 2025",
-      created: "June 26th, 2025",
-    },
-    {
-      id: 2,
-      name: "GitHub API",
-      logo: "https://cdn-icons-png.flaticon.com/512/25/25231.png",
-      updated: "June 30th, 2025",
-      created: "June 30th, 2025",
-    },
-  ]);
 
   const [apiKeys] = useState([
     {
@@ -72,7 +71,7 @@ export default function CredentialsLayout() {
         }),
       };
 
-      setCredentials([...credentials, newCredential]);
+      dispatch(addCredential(newCredential));
 
       // Modal'ı kapat
       const modal = document.getElementById(
@@ -107,7 +106,7 @@ export default function CredentialsLayout() {
 
   const handleDelete = (id: number) => {
     console.log(id);
-    setCredentials(credentials.filter((credential) => credential.id !== id));
+    dispatch(deleteCredential(id));
   };
 
   return (
@@ -161,7 +160,19 @@ export default function CredentialsLayout() {
 
           {/* Table */}
           {credentials.length === 0 ? (
-            <p>No credentials found</p>
+            <>
+              <div className="flex flex-col items-center justify-center gap-4 mt-50">
+                <div>
+                  <Key className="w-24 h-24" />
+                </div>
+                <div className="flex flex-col items-center gap-2">
+                  <p className="text-2xl font-medium">No credentials found</p>
+                  <p className="text-gray-600">
+                    Add your first credential to get started.
+                  </p>
+                </div>
+              </div>
+            </>
           ) : (
             <div className="overflow-hidden rounded-xl border border-gray-300">
               <table className="w-full text-sm p-2">
@@ -176,12 +187,12 @@ export default function CredentialsLayout() {
                 </thead>
                 <tbody>
                   {credentials
-                    .filter((credential) =>
+                    .filter((credential: Credential) =>
                       credential.name
                         .toLowerCase()
                         .includes(searchQuery.toLowerCase())
                     )
-                    .map((credential) => (
+                    .map((credential: Credential) => (
                       <tr
                         key={credential.id}
                         className="border-b border-gray-300"
