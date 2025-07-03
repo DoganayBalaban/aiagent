@@ -6,6 +6,7 @@ interface NodeType {
   type: string;
   label: string;
   data: any;
+  info: string;
 }
 
 interface DraggableNodeProps {
@@ -26,19 +27,34 @@ function DraggableNode({ nodeType }: DraggableNodeProps) {
     <div
       draggable
       onDragStart={onDragStart}
-      className="text-black  p-3 cursor-grab border-b-2 border-gray-200 hover:bg-gray-50 transition-all hover:scale-105 select-none rounded-lg"
+      className="text-black  p-3 cursor-grab  hover:bg-gray-200 transition-all select-none cursor-grabbing rounded-2xl"
     >
-      <div className="text-sm font-medium flex items-center gap-2">
+      <div className=" flex items-center gap-2">
         {nodeType.type === "toolAgent" ? (
-          <Bot className="w-4 h-4 text-blue-600" />
+          <div className=" p-2 rounded-2xl">
+            <Bot className="w-6 h-6 text-blue-600" />
+          </div>
         ) : nodeType.type === "condition" ? (
-          <Split className="w-4 h-4 text-green-600" />
+          <div className=" p-2 rounded-2xl">
+            <Split className="w-6 h-6 text-green-600" />
+          </div>
         ) : nodeType.type === "start" ? (
-          <Play className="w-4 h-4 text-green-600" />
+          <div className=" p-2 rounded-2xl">
+            <Play className="w-6 h-6 text-green-600" />
+          </div>
         ) : (
           <div></div>
         )}
-        {nodeType.label}
+        <div className="flex flex-col gap-2">
+          <div>
+            <h2 className="text-md font-medium text-gray-700">
+              {nodeType.label}
+            </h2>
+          </div>
+          <div>
+            <p className="text-xs text-gray-500">{nodeType.info}</p>
+          </div>
+        </div>
       </div>
     </div>
   );
