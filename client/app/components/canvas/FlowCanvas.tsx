@@ -8,51 +8,67 @@ import ReactFlow, {
   Background,
   MiniMap,
 } from "reactflow";
+
 import ToolAgentNode from "./ToolAgentNode";
 import StartNode from "./StartNode";
 import CustomEdge from "./CustomEdge";
 import ConditionNode from "./ConditionNode";
 
+// Özel düğüm (node) türlerini tanımla
 const nodeTypes = {
   toolAgent: ToolAgentNode,
   condition: ConditionNode,
   start: StartNode,
 };
 
+// Özel kenar (edge) türlerini tanımla
 const edgeTypes = {
   custom: CustomEdge,
 };
 
 function FlowCanvas() {
+  // Düğüm ve kenar durumları
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+
+  // React Flow pozisyonlama için referans
   const reactFlowWrapper = useRef<HTMLDivElement>(null);
   const { screenToFlowPosition } = useReactFlow();
+
+  // Düğüm ID'si için sayaç
   const [nodeId, setNodeId] = useState(1);
 
+  // Kenar bağlama işlemi
   const onConnect = useCallback(
     (params: any) => {
       setEdges((eds) => addEdge({ ...params, type: "custom" }, eds));
-      console.log(params);
+      console.log("Yeni bağlantı:", params);
     },
     [setEdges]
   );
 
+  // Sürükle-bırak sırasında varsayılan davranışı engelle
   const onDragOver = useCallback((event: React.DragEvent) => {
     event.preventDefault();
     event.dataTransfer.dropEffect = "move";
   }, []);
 
+  // Bırakma işlemi gerçekleştiğinde tetiklenir
   const onDrop = useCallback(
     (event: React.DragEvent) => {
       event.preventDefault();
       const nodeTypeData = event.dataTransfer.getData("application/reactflow");
 
-      if (!nodeTypeData) {
+      if (!nodeTypeData) return;
+
+      let nodeType;
+      try {
+        nodeType = JSON.parse(nodeTypeData);
+      } catch (err) {
+        console.error("Geçersiz nodeType JSON:", err);
         return;
       }
 
-      const nodeType = JSON.parse(nodeTypeData);
       const position = screenToFlowPosition({
         x: event.clientX,
         y: event.clientY,
@@ -90,7 +106,6 @@ function FlowCanvas() {
           nodeTypes={nodeTypes}
           edgeTypes={edgeTypes}
           fitView
-          className="bg-gray-50"
         >
           <Controls position="top-right" />
           <Background gap={20} size={1} />

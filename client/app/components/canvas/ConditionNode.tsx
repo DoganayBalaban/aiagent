@@ -1,15 +1,7 @@
-import React, { useState } from "react";
+import React, { useRef } from "react";
 import { useReactFlow, Handle, Position } from "reactflow";
-import {
-  GitBranch,
-  Settings,
-  CheckCircle,
-  AlertCircle,
-  Trash2,
-  Info,
-  Split,
-} from "lucide-react";
-import  ConditionConfigModal  from "./modals/ConditionConfigModal";
+import { CheckCircle, AlertCircle, Trash2, Info, Split } from "lucide-react";
+import ConditionConfigModal from "./modals/ConditionConfigModal";
 
 interface ConditionNodeProps {
   data: any;
@@ -17,11 +9,11 @@ interface ConditionNodeProps {
 }
 
 function ConditionNode({ data, id }: ConditionNodeProps) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const modalRef = useRef<HTMLDialogElement>(null);
   const { setNodes } = useReactFlow();
 
   const handleDoubleClick = () => {
-    setIsModalOpen(true);
+    modalRef.current?.showModal();
   };
 
   const handleConfigSave = (newConfig: any) => {
@@ -61,35 +53,6 @@ function ConditionNode({ data, id }: ConditionNodeProps) {
         onDoubleClick={handleDoubleClick}
         title="Çift tıklayarak konfigüre edin"
       >
-        
-        {/* Sil & Info Butonları */}
-        <div className="absolute top-1 right-1 flex gap-1 z-50">
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              setNodes((nodes) => nodes.filter((n) => n.id !== id));
-            }}
-            className="p-1 bg-red-100 hover:bg-red-200 rounded-md"
-            title="Sil"
-          >
-            <Trash2 className="w-4 h-4 text-red-600" />
-          </button>
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              alert(
-                `Node adı: ${data?.name || "Condition"}\nKural sayısı: ${
-                  data?.conditions?.length || 0
-                }`
-              );
-            }}
-            className="p-1 bg-blue-100 hover:bg-blue-200 rounded-md"
-            title="Bilgi"
-          >
-            <Info className="w-4 h-4 text-blue-600" />
-          </button>
-        </div>
-
         <div className="bg-yellow-500 p-3 rounded-lg">
           <Split className="w-6 h-6 text-white" />
         </div>
@@ -105,8 +68,6 @@ function ConditionNode({ data, id }: ConditionNodeProps) {
               : "Konfigürasyon gerekli"}
           </div>
         </div>
-
-       
 
         <Handle
           type="target"
@@ -131,16 +92,12 @@ function ConditionNode({ data, id }: ConditionNodeProps) {
       </div>
 
       <ConditionConfigModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        ref={modalRef}
         nodeData={data}
         onSave={handleConfigSave}
       />
     </>
   );
 }
-
-// Condition Config Modal Component
-
 
 export default ConditionNode;

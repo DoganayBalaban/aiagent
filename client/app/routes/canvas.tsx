@@ -4,6 +4,7 @@ import Navbar from "../components/canvas/Navbar";
 import Sidebar from "../components/canvas/Sidebar";
 import FlowCanvas from "../components/canvas/FlowCanvas";
 import "reactflow/dist/style.css";
+
 export default function App() {
   return (
     <ReactFlowProvider>
