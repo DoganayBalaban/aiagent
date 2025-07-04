@@ -13,12 +13,14 @@ import ToolAgentNode from "./ToolAgentNode";
 import StartNode from "./StartNode";
 import CustomEdge from "./CustomEdge";
 import ConditionNode from "./ConditionNode";
+import CustomFunctionNode from "./CustomFunctionNode";
 
 // Özel düğüm (node) türlerini tanımla
 const nodeTypes = {
   toolAgent: ToolAgentNode,
   condition: ConditionNode,
   start: StartNode,
+  customFunction: CustomFunctionNode,
 };
 
 // Özel kenar (edge) türlerini tanımla

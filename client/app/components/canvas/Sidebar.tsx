@@ -43,6 +43,18 @@ const NODE_TYPE_LIST = [
     },
     info: "Adds logic-based branching. Directs the flow based on true/false evaluation of defined rules.",
   },
+  {
+    id: "4",
+    type: "customFunction",
+    label: "Custom Function",
+    data: {
+      name: "Custom Function",
+      inputVariables: [],
+      function: "",
+      updateFlowState: [],
+    },
+    info: "Executes custom JavaScript logic using input variables and optionally updates the flow state.",
+  },
 ];
 
 function Sidebar() {

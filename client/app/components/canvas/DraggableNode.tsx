@@ -1,5 +1,5 @@
 import React from "react";
-import { Bot, Divide, Play, Split } from "lucide-react";
+import { Bot, Divide, Play, Split, SquareFunction } from "lucide-react";
 
 interface NodeType {
   id: string;
@@ -36,11 +36,15 @@ function DraggableNode({ nodeType }: DraggableNodeProps) {
           </div>
         ) : nodeType.type === "condition" ? (
           <div className=" p-2 rounded-2xl">
-            <Split className="w-6 h-6 text-green-600" />
+            <Split className="w-6 h-6 text-yellow-600" />
           </div>
         ) : nodeType.type === "start" ? (
           <div className=" p-2 rounded-2xl">
             <Play className="w-6 h-6 text-green-600" />
+          </div>
+        ) : nodeType.type === "customFunction" ? (
+          <div className=" p-2 rounded-2xl">
+            <SquareFunction className="w-6 h-6 text-purple-600" />
           </div>
         ) : (
           <div></div>
